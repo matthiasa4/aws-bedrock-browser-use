@@ -1,0 +1,32 @@
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+.mypy_cache/
+.ruff_cache/
+
+# Environment and secrets
+.env
+.venv/
+
+# Development files
+.idea/
+.git/
+.gitignore
+README.md
+*.md
+
+# Project outputs
+output*/
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Local development
+local/
+

@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+.env
+.venv
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
+
+# Project outputs
+output*/
+logs/
+*.log
+
+# Development
+.coverage
+.mypy_cache/
+.ruff_cache/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Local development
+local/*
+infrastructure/*
+scripts/*

@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  aws-bedrock-browser-agent:
+    build: .
+    container_name: bedrock-browser
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./output:/app/output
+      - ./logs:/app/logs
+      - ~/.aws:/root/.aws:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
