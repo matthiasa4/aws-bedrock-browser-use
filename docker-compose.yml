@@ -3,7 +3,7 @@ version: '3.8'
 services:
   aws-bedrock-browser-agent:
     build: .
-    container_name: bedrock-browser
+    container_name: aws-bedrock-browser-agent
     ports:
       - "8000:8000"
     env_file:

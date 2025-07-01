@@ -50,7 +50,7 @@ RUN npm install -g @playwright/mcp@latest @modelcontextprotocol/server-filesyste
 RUN playwright install chromium --with-deps
 
 # Create output directory
-RUN mkdir -p /output
+RUN mkdir -p ./output
 
 # Copy source code last to maximize cache hits
 COPY src/ ./
