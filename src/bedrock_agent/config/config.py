@@ -1,20 +1,11 @@
 import os
 import glob
 
-import boto3
 from dotenv import load_dotenv
 from mcp import StdioServerParameters
 
 # Load environment variables first
 load_dotenv()
-
-# Create AWS session with proper region configuration
-aws_session = boto3.Session(
-    aws_access_key_id=os.environ.get("AWS_ACCESS_KEY_ID"),
-    aws_secret_access_key=os.environ.get("AWS_SECRET_ACCESS_KEY"),
-    aws_session_token=os.environ.get("AWS_SESSION_TOKEN"),
-    region_name=os.environ.get("AWS_REGION", "us-east-1"),
-)
 
 # Get the directory where this file is located
 current_dir = os.path.dirname(os.path.abspath(__file__))  # src/bedrock_agent/config/

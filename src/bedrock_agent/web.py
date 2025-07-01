@@ -97,6 +97,12 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
         manager.disconnect(websocket)
 
 
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for ALB/ELB health checks."""
+    return {"status": "healthy", "service": "aws-bedrock-browser-agent"}
+
+
 @app.get("/")
 async def get_frontend():
     # Get current configuration for display

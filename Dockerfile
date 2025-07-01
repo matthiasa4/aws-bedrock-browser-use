@@ -4,8 +4,8 @@ FROM python:3.13-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies for Node.js, npm, Git, and Playwright
-RUN apt-get update && apt-get install -y \
+# Install system dependencies in a single layer with cache cleanup
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     gnupg \
     wget \
@@ -28,27 +28,32 @@ RUN apt-get update && apt-get install -y \
     libxkbcommon0 \
     libxrandr2 \
     xvfb \
-    && rm -rf /var/lib/apt/lists/*
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install Node.js 18.x
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
-
-# Copy project files
+# Copy only requirements first to leverage Docker layer caching
 COPY requirements.txt ./
-COPY src/ ./
 
-# Create output directory for the application
+# Install Python dependencies with caching optimizations
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install Playwright browsers
+RUN playwright install chromium --with-deps
+
+# Install MCP servers globally
+RUN npm install -g @playwright/mcp@latest @modelcontextprotocol/server-filesystem \
+    && npm cache clean --force
+
+# Install Playwright browsers
+RUN playwright install chromium --with-deps
+
+# Create output directory
 RUN mkdir -p /output
 
-# Install Python dependencies
-RUN pip install -r requirements.txt
-
-# Install MCP servers globally and Playwright test package
-RUN npm install -g @playwright/mcp@latest @modelcontextprotocol/server-filesystem 
-
-# RUN python -m playwright install --with-deps chromium
-RUN playwright install chromium --with-deps
+# Copy source code last to maximize cache hits
+COPY src/ ./
 
 # Expose port 8000
 EXPOSE 8000
