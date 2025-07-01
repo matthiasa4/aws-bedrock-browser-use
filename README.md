@@ -189,6 +189,43 @@ Use the provided deployment scripts:
 ./infrastructure/deploy-to-fargate.sh
 ```
 
+### Environment Variables and Secrets Configuration
+
+For Fargate deployments, the application supports both regular environment variables and secure secrets managed by AWS Secrets Manager.
+
+#### Required Environment Variables
+
+The following environment variables are automatically configured in the Fargate deployment:
+
+- `NODE_ENV`: Set to "production"
+- `PORT`: Application port (8000)
+- `AWS_REGION`: AWS region for the deployment
+- `OTEL_EXPORTER_OTLP_ENDPOINT`: OpenTelemetry endpoint for LangFuse integration
+
+#### Setting up Secrets
+
+To configure sensitive information like API keys or authentication headers, use AWS Secrets Manager:
+
+1. **Create the OTEL_EXPORTER_OTLP_HEADERS secret** (required for LangFuse observability):
+
+```bash
+# Replace with your actual LangFuse authorization header
+aws secretsmanager create-secret \
+    --name "ecs/aws-bedrock-agent/OTEL_EXPORTER_OTLP_HEADERS" \
+    --description "Authorization header for LangFuse OTEL integration" \
+    --secret-string "Authorization=Basic your-langfuse-credentials-here" \
+    --region us-east-1
+```
+
+#### Observability Configuration
+
+The application is pre-configured to send observability data to LangFuse:
+
+- **OTEL_EXPORTER_OTLP_ENDPOINT**: `https://cloud.langfuse.com/api/public/otel`
+- **OTEL_EXPORTER_OTLP_HEADERS**: Retrieved securely from AWS Secrets Manager
+
+Make sure to set up the `OTEL_EXPORTER_OTLP_HEADERS` secret with your LangFuse credentials before deploying.
+
 ### Configuration Options
 
 The application supports extensive configuration via environment variables:

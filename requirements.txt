@@ -1,5 +1,5 @@
 # Core dependencies
-strands-agents>=0.1.0
+strands-agents[otel]>=0.1.0
 strands-agents-tools>=0.1.0
 mcp>=0.9.0
 fastapi>=0.104.0
