@@ -6,7 +6,7 @@
 set -e
 
 # Configuration - Update these values to match deploy-to-fargate.sh
-APP_NAME="aws-bedrock-agent"
+APP_NAME="bedrock-browser-agent"
 ECR_REPOSITORY="010928204318.dkr.ecr.us-east-1.amazonaws.com/aws-bedrock-browser-agent"
 IMAGE_TAG="latest"
 AWS_REGION="us-east-1"

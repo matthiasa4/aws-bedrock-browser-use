@@ -111,7 +111,23 @@ SECRET_ARN=$(aws cloudformation describe-stacks \
 # Update the secret with your LangFuse credentials
 aws secretsmanager update-secret \
   --secret-id "$SECRET_ARN" \
-  --secret-string '{"authorization":"Basic YOUR_BASE64_ENCODED_LANGFUSE_CREDENTIALS"}'
+  --secret-string "Authorization=Basic your-langfuse-credentials-here"
+```
+
+After updating the Secrets Manager secret, you need to force restart the containers to pick up the new secret values. Here are several ways to do this:
+
+```bash
+# Force new deployment of the service
+aws ecs update-service \
+  --cluster bedrock-browser-agent-cluster \
+  --service bedrock-browser-agent-service \
+  --force-new-deployment
+```
+
+Follow along with the logs:
+
+```
+aws logs tail /ecs/bedrock-browser-agent --follow
 ```
 
 ### Access the Application
