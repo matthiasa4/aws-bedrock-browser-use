@@ -230,7 +230,7 @@ async def run_assessment(user_input: str, session_id: str, args: argparse.Namesp
 
             print(f"Starting assessment with session ID: {session_id}")
             print(f"Using model: {args.model}")
-            print(f"Knowledge base: {os.getenv('BEDROCK_KNOWLEDGE_BASE_ID', 'Not configured')}")
+            print(f"Knowledge base: {os.getenv('KNOWLEDGE_BASE_ID', 'Not configured')}")
             print(f"Target: {user_input}")
 
             # Run the assessment

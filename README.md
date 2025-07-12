@@ -82,7 +82,7 @@ After installation, the `bedrock-browser-agent` command will be available global
 
    - `us.anthropic.claude-3-5-sonnet-20241022-v2:0`
 
-4. **CVE Knowledge Base**: The agent uses a pre-processed CVE database for vulnerability analysis. The knowledge base data is included in the `data/knowledge-base/` directory, configured using `BEDROCK_KNOWLEDGE_BASE_ID` in your `.env` file.
+4. **CVE Knowledge Base**: The agent uses a pre-processed CVE database for vulnerability analysis. The knowledge base data is included in the `data/knowledge-base/` directory, configured using `KNOWLEDGE_BASE_ID` in your `.env` file.
 
 ## 🚀 Usage
 
@@ -211,7 +211,7 @@ To configure sensitive information like API keys or authentication headers, use 
 ```bash
 # Replace with your actual LangFuse authorization header
 aws secretsmanager create-secret \
-    --name "ecs/aws-bedrock-agent/OTEL_EXPORTER_OTLP_HEADERS" \
+    --name "ecs/bedrock-browser-agent/OTEL_EXPORTER_OTLP_HEADERS" \
     --description "Authorization header for LangFuse OTEL integration" \
     --secret-string "Authorization=Basic your-langfuse-credentials-here" \
     --region us-east-1
@@ -239,7 +239,7 @@ AWS_SESSION_TOKEN="your_session_token_here_if_using_temporary_credentials"
 
 # AWS Bedrock Configuration
 BEDROCK_MODEL_ID="us.anthropic.claude-3-5-sonnet-20241022-v2:0"
-BEDROCK_KNOWLEDGE_BASE_ID="cve-kb"
+KNOWLEDGE_BASE_ID="cve-kb"
 
 # Application Defaults (override CLI defaults)
 DEFAULT_USER_INPUT="Make your assessment of the website http://testphp.vulnweb.com"

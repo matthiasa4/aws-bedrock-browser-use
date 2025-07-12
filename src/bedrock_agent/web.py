@@ -704,8 +704,8 @@ async def run_agent(request_data: dict):
 
 # Set knowledge base ID from args when available
 def set_knowledge_base_env(knowledge_base_id: str) -> None:
-    """Set the BEDROCK_KNOWLEDGE_BASE_ID environment variable for the retrieve tool."""
-    os.environ["BEDROCK_KNOWLEDGE_BASE_ID"] = knowledge_base_id
+    """Set the KNOWLEDGE_BASE_ID environment variable for the retrieve tool."""
+    os.environ["KNOWLEDGE_BASE_ID"] = knowledge_base_id
 
 
 def truncate_long_output(text, max_lines=5):
@@ -730,7 +730,7 @@ if __name__ == "__main__":
     logger = get_logger(__name__)
 
     # Get knowledge base ID from environment variable
-    knowledge_base_id = os.getenv("BEDROCK_KNOWLEDGE_BASE_ID")
+    knowledge_base_id = os.getenv("KNOWLEDGE_BASE_ID")
     if knowledge_base_id:
         # Set knowledge base ID for retrieve tool
         set_knowledge_base_env(knowledge_base_id)

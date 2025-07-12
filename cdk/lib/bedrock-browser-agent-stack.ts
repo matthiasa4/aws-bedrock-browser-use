@@ -145,10 +145,10 @@ export class BedrockBrowserAgentStack extends Stack {
         
         // Bedrock configuration (can be overridden via context)
         BEDROCK_MODEL_ID: this.node.tryGetContext("bedrockModelId") || "us.anthropic.claude-3-5-sonnet-20241022-v2:0",
-        BEDROCK_KNOWLEDGE_BASE_ID: this.node.tryGetContext("knowledgeBaseId") || "",
+        KNOWLEDGE_BASE_ID: this.node.tryGetContext("knowledgeBaseId") || "",
       },
       secrets: {
-        OTEL_EXPORTER_OTLP_HEADERS: ecs.Secret.fromSecretsManager(otlpHeadersSecret, "authorization"),
+        OTEL_EXPORTER_OTLP_HEADERS: ecs.Secret.fromSecretsManager(otlpHeadersSecret),
       },
       portMappings: [
         {
