@@ -139,6 +139,7 @@ export class BedrockBrowserAgentStack extends Stack {
         NODE_ENV: "production",
         PORT: "8000",
         AWS_REGION: this.region,
+        OUTPUT_DIR: "./output",
         
         // Observability configuration
         OTEL_EXPORTER_OTLP_ENDPOINT: "https://cloud.langfuse.com/api/public/otel",
